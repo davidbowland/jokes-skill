@@ -18,6 +18,24 @@
         },
         "type": "@ask-cli/lambda-deployer"
       }
+    },
+    "__ENVIRONMENT_ASK_PROFILE__": {
+      "skillMetadata": {
+        "src": "./skill-package"
+      },
+      "code": {
+        "default": {
+          "src": "./lambda"
+        }
+      },
+      "skillInfrastructure": {
+        "userConfig": {
+          "runtime": "nodejs14.x",
+          "handler": "index.handler",
+          "awsRegion": "us-east-2"
+        },
+        "type": "@ask-cli/lambda-deployer"
+      }
     }
   }
 }
