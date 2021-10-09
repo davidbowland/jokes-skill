@@ -4,7 +4,7 @@
   "description": "Skill for having Alexa tell David jokes",
   "main": "index.js",
   "engines": {
-    "node": "^14.0.0"
+    "node": "^12.0.0"
   },
   "scripts": {
     "lint": "prettier --write . && eslint --fix .",
