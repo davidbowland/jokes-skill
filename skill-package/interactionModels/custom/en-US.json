@@ -1,0 +1,45 @@
+{
+    "interactionModel": {
+      "languageModel": {
+        "invocationName": "david jokes",
+        "intents": [
+          {
+            "name": "AMAZON.CancelIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.HelpIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.StopIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.YesIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.NoIntent",
+            "samples": []
+          },
+          {
+            "name": "JokeIntent",
+            "slots": [],
+            "samples": [
+              "tell a joke",
+              "tell me a joke",
+              "tell me something funny",
+              "say something funny"
+            ]
+          },
+          {
+            "name": "AMAZON.NavigateHomeIntent",
+            "samples": []
+          }
+        ],
+        "types": []
+      }
+    },
+    "version": "1"
+  }

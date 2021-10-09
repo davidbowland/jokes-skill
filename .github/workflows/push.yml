@@ -1,0 +1,58 @@
+name: Deploy Alexa skill
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy skill using Alexa Skill Kit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install Node 12
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Install Alexa Skill Kit CLI
+        run: npm install -g ask-cli
+      - name: Execute Alexa Skill Kit deploy
+        run: ask deploy
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+  bump:
+    name: Bump the version number and tag the commit
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v2
+      - name: Install Node 12
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+      - name: Install NPM 7
+        run: npm install -g npm@7
+      - name: Set git name and email
+        run: |
+          git config --local user.email "dbowland1+bot@gmail.com"
+          git config --local user.name "github-actions[bot]"
+      - name: Bump the minor version
+        run: npm version minor
+        working-directory: ./lambda/
+      - name: Push tag created by version bump
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

@@ -1,0 +1,41 @@
+{
+  "askcliStatesVersion": "2020-03-31",
+  "profiles": {
+    "default": {
+      "skillInfrastructure": {
+        "@ask-cli/lambda-deployer": {
+          "deployState": {}
+        }
+      },
+      "skillId": "amzn1.ask.skill.7957b4ca-0737-4c9a-a6f2-d3254a1c3b91",
+      "skillMetadata": {
+        "lastDeployHash": "ZeqEKxqhWUdHFHE9LjTZFvN2hrw="
+      }
+    },
+    "developer": {
+      "skillId": "amzn1.ask.skill.3c262b70-773c-4306-a822-850563995645",
+      "skillMetadata": {
+        "lastDeployHash": "TuXM1VQfxI8MxB+mf++GQL4TI3o="
+      },
+      "code": {
+        "default": {
+          "lastDeployHash": "igjrCRE5oCeS7iBpzOygLCrRhbw="
+        }
+      },
+      "skillInfrastructure": {
+        "@ask-cli/lambda-deployer": {
+          "deployState": {
+            "default": {
+              "lambda": {
+                "arn": "arn:aws:lambda:us-east-2:494887012091:function:ask-davidjokes-developer-default-1633773259630",
+                "lastModified": "2021-10-09T09:54:29.755+0000",
+                "revisionId": "a948a255-088d-4a93-9933-789077d4b1d7"
+              },
+              "iamRole": "arn:aws:iam::494887012091:role/ask-lambda-DavidJokes-1633773258979"
+            }
+          }
+        }
+      }
+    }
+  }
+}
