@@ -2,24 +2,13 @@
   "askcliStatesVersion": "2020-03-31",
   "profiles": {
     "default": {
-      "skillInfrastructure": {
-        "@ask-cli/lambda-deployer": {
-          "deployState": {}
-        }
-      },
-      "skillId": "amzn1.ask.skill.7957b4ca-0737-4c9a-a6f2-d3254a1c3b91",
-      "skillMetadata": {
-        "lastDeployHash": "ZeqEKxqhWUdHFHE9LjTZFvN2hrw="
-      }
-    },
-    "developer": {
       "skillId": "amzn1.ask.skill.3c262b70-773c-4306-a822-850563995645",
       "skillMetadata": {
-        "lastDeployHash": "TuXM1VQfxI8MxB+mf++GQL4TI3o="
+        "lastDeployHash": "1Ksl+w2VEOQmsrJ1h1z+K4EVwEE="
       },
       "code": {
         "default": {
-          "lastDeployHash": "tvMv9/GH5lKWomn8epw9PWnqvnM="
+          "lastDeployHash": "eA6VXLrPTXo2WYuO2tbomExKsCs="
         }
       },
       "skillInfrastructure": {
@@ -28,8 +17,8 @@
             "default": {
               "lambda": {
                 "arn": "arn:aws:lambda:us-east-2:494887012091:function:ask-davidjokes-developer-default-1633773259630",
-                "lastModified": "2021-10-09T21:22:45.139+0000",
-                "revisionId": "f280824f-a9b3-4ea7-883f-47b7cd106ceb"
+                "lastModified": "2021-10-10T16:09:11.888+0000",
+                "revisionId": "8fbfa020-cb3f-49a1-96af-01198031c6e3"
               },
               "iamRole": "arn:aws:iam::494887012091:role/ask-lambda-DavidJokes-1633773258979"
             }

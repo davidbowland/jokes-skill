@@ -10,10 +10,10 @@
             "I want to roll my eyes so hard it hurts"
           ],
           "name": "David Jokes",
-          "category": "Novelty & Humor",
           "description": "A skill that tells groan-inducing jokes. Another dad-joke generator."
         }
       },
+      "category": "NOVELTY",
       "isAvailableWorldwide": true,
       "distributionCountries": []
     },
