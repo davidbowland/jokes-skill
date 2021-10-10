@@ -122,9 +122,7 @@ const logError = (error) => (value) => (console.error(`~~~~ Error handled: ${JSO
 const ErrorHandler = {
   canHandle: () => true,
   handle: (handlerInput, error) =>
-    Promise.resolve(getErrorText())
-      .then(generateRepromptResponse(handlerInput))
-      .then(logError(error)),
+    Promise.resolve(getErrorText()).then(generateRepromptResponse(handlerInput)).then(logError(error)),
 }
 
 /* Handler */

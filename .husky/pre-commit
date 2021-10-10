@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Stop immediately on error
+set -e
+
+# Switch to lambda directory
+cd lambda
+
+# Prettify all files and lint JavaScript files
+npx lint-staged

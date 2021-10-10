@@ -1,6 +1,7 @@
 {
   "name": "jokes-skill",
   "version": "1.3.0",
+  "author": "David Bowland",
   "description": "Skill for having Alexa tell David jokes",
   "main": "index.js",
   "engines": {
@@ -8,11 +9,20 @@
   },
   "scripts": {
     "lint": "prettier --write . && eslint --fix .",
+    "prepare": "if [ \"$NODE_ENV\" != \"production\" ]; then husky install ; fi",
     "start": "node ./node_modules/ask-sdk-local-debug/dist/LocalDebuggerInvoker.js --accessToken $ACCESS_TOKEN --skillId $SKILL_ID --skillEntryFile index.js --handlerName handler",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "David Bowland",
-  "license": "Apache License",
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "prettier --write --ignore-unknown",
+      "eslint --fix",
+      "jest --colors --findRelatedTests --coverageThreshold '{}'"
+    ],
+    "**/*": [
+      "prettier --write --ignore-unknown"
+    ]
+  },
   "dependencies": {
     "ask-sdk-core": "^2.7.0",
     "ask-sdk-model": "^1.19.0",
@@ -21,9 +31,13 @@
   },
   "devDependencies": {
     "ask-sdk-local-debug": "^1.1.0",
+    "ask-sdk-test": "^2.6.0",
+    "chai": "^4.3.4",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "husky": "^7.0.2",
     "lint-staged": "^11.2.0",
+    "mocha": "^8.4.0",
     "prettier": "^2.4.1"
   }
 }
