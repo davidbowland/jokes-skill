@@ -34,6 +34,19 @@
             ]
           },
           {
+            "name": "RepeatIntent",
+            "slots": [],
+            "samples": [
+              "repeat",
+              "repeat that last joke",
+              "tell me that joke again",
+              "say that again",
+              "what was that",
+              "I didn't catch that",
+              "one more time"
+            ]
+          },
+          {
             "name": "AMAZON.NavigateHomeIntent",
             "samples": []
           }
