@@ -135,8 +135,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     FallbackIntentHandler,
-    SessionEndedRequestHandler,
-    IntentReflectorHandler
+    SessionEndedRequestHandler
   )
   .addErrorHandlers(ErrorHandler)
   .withCustomUserAgent('david-jokes/v1.3')
