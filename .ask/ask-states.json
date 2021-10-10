@@ -4,11 +4,11 @@
     "default": {
       "skillId": "amzn1.ask.skill.3c262b70-773c-4306-a822-850563995645",
       "skillMetadata": {
-        "lastDeployHash": "1Ksl+w2VEOQmsrJ1h1z+K4EVwEE="
+        "lastDeployHash": "QbTKZYld/DbYP561ngddRQmtspA="
       },
       "code": {
         "default": {
-          "lastDeployHash": "jk3Tf0wMgE1Ju7qKVCKbV7AP/e0="
+          "lastDeployHash": "zknKftPOehr5YP23FWd09xc5gdY="
         }
       },
       "skillInfrastructure": {
@@ -17,8 +17,8 @@
             "default": {
               "lambda": {
                 "arn": "arn:aws:lambda:us-east-2:494887012091:function:ask-davidjokes-developer-default-1633773259630",
-                "lastModified": "2021-10-10T16:40:57.495+0000",
-                "revisionId": "ae47d882-a09e-4858-a797-aa5ef9bf738a"
+                "lastModified": "2021-10-10T22:41:16.640+0000",
+                "revisionId": "ae635c1e-45fe-412d-b604-431b9aae9a89"
               },
               "iamRole": "arn:aws:iam::494887012091:role/ask-lambda-DavidJokes-1633773258979"
             }

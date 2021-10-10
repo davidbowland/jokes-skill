@@ -12,12 +12,18 @@ const api = axios.create({
   baseURL: 'https://i8m4dc6jfh.execute-api.us-east-2.amazonaws.com',
 })
 
+const transformJokesToObjects = (jokeData) =>
+  jokeData.map((joke) => ({ id: joke[0], text: joke[1].joke }))
+
 const getJokesFromApi = (count) =>
-  api.request({
-    method: 'GET',
-    params: { count },
-    url: '/v1/jokes/random',
-  })
+  api
+    .request({
+      method: 'GET',
+      params: { count },
+      url: '/v1/jokes/random',
+    })
+    .then((response) => Object.entries(response.data))
+    .then(transformJokesToObjects)
 
 /* Responses */
 
@@ -32,9 +38,18 @@ const generateRepromptResponse = (handlerInput, repromptOutput) => (speakOutput)
 const generateSimpleResponse = (handlerInput) => (speakOutput) =>
   handlerInput.responseBuilder.speak(speakOutput).getResponse()
 
+/* Session */
+
+// prettier-ignore
+const saveSessionData = (handlerInput) => (data) =>
+  (handlerInput.attributesManager.setSessionAttributes(data), data)
+
+const restoreSessionData = (handlerInput) =>
+  handlerInput.attributesManager.getSessionAttributes()
+
 /* Get joke */
 
-const getJokeFromResult = (result) => Object.values(result.data)[0].joke
+const getJokeText = (jokeData) => jokeData.text
 
 const getFallbackJoke = () => 'Did you hear about the circus fire? It was in tents!'
 
@@ -48,8 +63,23 @@ const JokeIntentHandler = {
         Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.YesIntent')),
   handle: (handlerInput) =>
     getJokesFromApi(1)
-      .then(getJokeFromResult)
+      .then((jokeData) => jokeData[0])
+      .then(saveSessionData(handlerInput))
+      .then(getJokeText)
       .catch((error) => (logError(error)(), getFallbackJoke()))
+      .then(generateRepromptResponse(handlerInput, getJokeReprompt()))
+      .catch((error) => ErrorHandler.handle(handlerInput, error)),
+}
+
+/* Repeat joke */
+
+const RepeatIntentHandler = {
+  canHandle: (handlerInput) =>
+    Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
+    Alexa.getIntentName(handlerInput.requestEnvelope) === 'RepeatIntent',
+  handle: (handlerInput) =>
+    Promise.resolve(restoreSessionData(handlerInput))
+      .then(getJokeText)
       .then(generateRepromptResponse(handlerInput, getJokeReprompt()))
       .catch((error) => ErrorHandler.handle(handlerInput, error)),
 }
@@ -122,7 +152,9 @@ const logError = (error) => (value) => (console.error(`~~~~ Error handled: ${JSO
 const ErrorHandler = {
   canHandle: () => true,
   handle: (handlerInput, error) =>
-    Promise.resolve(getErrorText()).then(generateRepromptResponse(handlerInput)).then(logError(error)),
+    Promise.resolve(getErrorText())
+      .then(generateRepromptResponse(handlerInput))
+      .then(logError(error)),
 }
 
 /* Handler */
@@ -130,6 +162,7 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
   .addRequestHandlers(
     JokeIntentHandler,
+    RepeatIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     FallbackIntentHandler,
