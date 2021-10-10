@@ -47,6 +47,19 @@
             ]
           },
           {
+            "name": "IdentityIntent",
+            "slots": [],
+            "samples": [
+              "tell me the id",
+              "joke number",
+              "id number",
+              "tell me that joke's primary key",
+              "primary key",
+              "give me the id",
+              "what was that joke's id"
+            ]
+          },
+          {
             "name": "AMAZON.NavigateHomeIntent",
             "samples": []
           }

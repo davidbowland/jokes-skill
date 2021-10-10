@@ -84,6 +84,24 @@ const RepeatIntentHandler = {
       .catch((error) => ErrorHandler.handle(handlerInput, error)),
 }
 
+/* Get joke id number */
+
+const getJokeId = (jokeData) => jokeData.id
+
+const getTextFromId = (id) => `That was joke ID number ${id}.`
+
+const IdentityIntentHandler = {
+  canHandle: (handlerInput) =>
+    Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
+    Alexa.getIntentName(handlerInput.requestEnvelope) === 'IdentityIntent',
+  handle: (handlerInput) =>
+    Promise.resolve(restoreSessionData(handlerInput))
+      .then(getJokeId)
+      .then(getTextFromId)
+      .then(generateRepromptResponse(handlerInput, getJokeReprompt()))
+      .catch((error) => ErrorHandler.handle(handlerInput, error)),
+}
+
 /* Help */
 
 const getHelpContent = () => 'You can ask me to tell you a joke.'
@@ -163,6 +181,7 @@ exports.handler = Alexa.SkillBuilders.custom()
   .addRequestHandlers(
     JokeIntentHandler,
     RepeatIntentHandler,
+    IdentityIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     FallbackIntentHandler,
