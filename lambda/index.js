@@ -1,19 +1,15 @@
 const Alexa = require('ask-sdk-core')
 const axios = require('axios')
 
-// const logIt = (label) => (whatever) => {
-//   console.log(label, whatever)
-//   return whatever
-// }
+// const logIt = (label) => (whatever) =>
+//   Promise.resolve(console.log(label, whatever))
+//     .then(() => whatever)
 
 /* API */
 
 const api = axios.create({
   baseURL: 'https://i8m4dc6jfh.execute-api.us-east-2.amazonaws.com',
 })
-
-const transformJokesToObjects = (jokeData) =>
-  jokeData.map((joke) => ({ id: joke[0], text: joke[1].joke }))
 
 const getJokesFromApi = (count) =>
   api
@@ -22,8 +18,21 @@ const getJokesFromApi = (count) =>
       params: { count },
       url: '/v1/jokes/random',
     })
-    .then((response) => Object.entries(response.data))
+    .then((response) => response.data)
+
+/* Joke transformations */
+
+const transformJokesToObjects = (jokeData) =>
+  Object.entries(jokeData).map((joke) => ({ id: joke[0], text: joke[1].joke }))
+
+const extractJokeId = (jokeData) => jokeData.id
+
+const extractJokeText = (jokeData) => jokeData.text
+
+const getNextJoke = () =>
+  getJokesFromApi(1)
     .then(transformJokesToObjects)
+    .then((jokeData) => jokeData[0])
 
 /* Responses */
 
@@ -40,16 +49,12 @@ const generateSimpleResponse = (handlerInput) => (speakOutput) =>
 
 /* Session */
 
-// prettier-ignore
 const saveSessionData = (handlerInput) => (data) =>
-  (handlerInput.attributesManager.setSessionAttributes(data), data)
+  Promise.resolve(handlerInput.attributesManager.setSessionAttributes(data)).then(() => data)
 
-const restoreSessionData = (handlerInput) =>
-  handlerInput.attributesManager.getSessionAttributes()
+const restoreSessionData = (handlerInput) => handlerInput.attributesManager.getSessionAttributes()
 
 /* Get joke */
-
-const getJokeText = (jokeData) => jokeData.text
 
 const getFallbackJoke = () => 'Did you hear about the circus fire? It was in tents!'
 
@@ -62,11 +67,10 @@ const JokeIntentHandler = {
       (Alexa.getIntentName(handlerInput.requestEnvelope) === 'JokeIntent' ||
         Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.YesIntent')),
   handle: (handlerInput) =>
-    getJokesFromApi(1)
-      .then((jokeData) => jokeData[0])
+    getNextJoke()
       .then(saveSessionData(handlerInput))
-      .then(getJokeText)
-      .catch((error) => (logError(error)(), getFallbackJoke()))
+      .then(extractJokeText)
+      .catch((error) => logError(error)(getFallbackJoke()))
       .then(generateRepromptResponse(handlerInput, getJokeReprompt()))
       .catch((error) => ErrorHandler.handle(handlerInput, error)),
 }
@@ -79,14 +83,12 @@ const RepeatIntentHandler = {
     Alexa.getIntentName(handlerInput.requestEnvelope) === 'RepeatIntent',
   handle: (handlerInput) =>
     Promise.resolve(restoreSessionData(handlerInput))
-      .then(getJokeText)
+      .then(extractJokeText)
       .then(generateRepromptResponse(handlerInput, getJokeReprompt()))
       .catch((error) => ErrorHandler.handle(handlerInput, error)),
 }
 
 /* Get joke id number */
-
-const getJokeId = (jokeData) => jokeData.id
 
 const getTextFromId = (id) => `That was joke ID number ${id}.`
 
@@ -96,7 +98,7 @@ const IdentityIntentHandler = {
     Alexa.getIntentName(handlerInput.requestEnvelope) === 'IdentityIntent',
   handle: (handlerInput) =>
     Promise.resolve(restoreSessionData(handlerInput))
-      .then(getJokeId)
+      .then(extractJokeId)
       .then(getTextFromId)
       .then(generateRepromptResponse(handlerInput, getJokeReprompt()))
       .catch((error) => ErrorHandler.handle(handlerInput, error)),
@@ -150,10 +152,12 @@ const FallbackIntentHandler = {
 
 /* Session ended */
 
-const endSession = (handlerInput) => console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`)
+const endSession = (handlerInput) =>
+  console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`)
 
 const SessionEndedRequestHandler = {
-  canHandle: (handlerInput) => Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest',
+  canHandle: (handlerInput) =>
+    Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest',
   handle: (handlerInput) =>
     Promise.resolve(endSession())
       .then(generateEmptyResponse(handlerInput))
@@ -164,8 +168,8 @@ const SessionEndedRequestHandler = {
 
 const getErrorText = () => 'Sorry, I had trouble doing what you asked. Please try again.'
 
-// prettier-ignore
-const logError = (error) => (value) => (console.error(`~~~~ Error handled: ${JSON.stringify(error)}`), value)
+const logError = (error) => (value) =>
+  Promise.resolve(console.error(`~~~~ Error handled: ${JSON.stringify(error)}`)).then(() => value)
 
 const ErrorHandler = {
   canHandle: () => true,
