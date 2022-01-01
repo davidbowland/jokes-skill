@@ -8,7 +8,7 @@
       },
       "code": {
         "default": {
-          "lastDeployHash": "ncvYdLM6vuzIDfbHH/BweP7sGQ8="
+          "lastDeployHash": "c5NkED+SbX/hDRuAO88aaQEKkKs="
         }
       },
       "skillInfrastructure": {
@@ -17,8 +17,8 @@
             "default": {
               "lambda": {
                 "arn": "arn:aws:lambda:us-east-2:494887012091:function:ask-davidjokes-developer-default-1633773259630",
-                "lastModified": "2021-10-11T06:29:36.993+0000",
-                "revisionId": "b83c31c5-499c-4d1e-9f27-8a806260433b"
+                "lastModified": "2022-01-01T05:46:43.000+0000",
+                "revisionId": "a05fd02e-6841-41cf-9069-c2d168226150"
               },
               "iamRole": "arn:aws:iam::494887012091:role/ask-lambda-DavidJokes-1633773258979"
             }
