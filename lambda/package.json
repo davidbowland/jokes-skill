@@ -9,7 +9,7 @@
   },
   "scripts": {
     "lint": "prettier --write . && eslint --fix .",
-    "prepare": "if [ \"$NODE_ENV\" != \"production\" ]; then husky install ; fi",
+    "prepare": "cd ..; if [ \"$NODE_ENV\" != \"production\" ]; then husky install ; fi",
     "start": "node ./node_modules/ask-sdk-local-debug/dist/LocalDebuggerInvoker.js --accessToken $ACCESS_TOKEN --skillId $SKILL_ID --skillEntryFile index.js --handlerName handler",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

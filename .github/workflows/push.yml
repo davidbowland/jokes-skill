@@ -1,25 +1,31 @@
-# name: Deploy Alexa skill
+name: Deploy Alexa skill
 
-# on:
-#   push:
-#     branches:
-#       - master
+on:
+  push:
+    branches:
+      - master
 
-# jobs:
-#   deploy:
-#     name: Deploy skill using Alexa Skill Kit
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout latest code
-#         uses: actions/checkout@v2
-#         with:
-#           fetch-depth: 0
-#       - name: Install Node 14
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: 14.x
-#       - name: Install NPM 8
-#         run: npm install -g npm@8
+jobs:
+  deploy:
+    name: Deploy skill using Alexa Skill Kit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install Node 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Install NPM 8
+        run: npm install -g npm@8
+      - name: Install and audit packages
+        run: npm ci && npm audit --audit-level=high
+        env:
+          HUSKY: 0
+          NODE_ENV: test
+        working-directory: ./lambda/
 #       - name: Install Alexa Skill Kit CLI
 #         run: npm install -g ask-cli
 #       - name: Execute Alexa Skill Kit deploy

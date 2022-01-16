@@ -23,7 +23,7 @@ const getJokesFromApi = (count) =>
 /* Joke transformations */
 
 const transformJokesToObjects = (jokeData) =>
-  Object.entries(jokeData).map((joke) => ({ id: joke[0], text: joke[1].joke }))
+  Object.entries(jokeData).map(([id, joke]) => ({ id, text: joke.contents }))
 
 const extractJokeId = (jokeData) => jokeData.id
 
@@ -192,5 +192,5 @@ exports.handler = Alexa.SkillBuilders.custom()
     SessionEndedRequestHandler
   )
   .addErrorHandlers(ErrorHandler)
-  .withCustomUserAgent('david-jokes/v1.3')
+  .withCustomUserAgent('jokes-skill/v1.4')
   .lambda()
