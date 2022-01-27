@@ -8,7 +8,7 @@ const axios = require('axios')
 /* API */
 
 const api = axios.create({
-  baseURL: 'https://jokes-api.bowland.link',
+  baseURL: 'https://jokes-api.dbowland.com',
 })
 
 const getJokesFromApi = (count) =>
