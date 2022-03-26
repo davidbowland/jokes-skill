@@ -15,7 +15,10 @@
     "no-explicit-any": ["off"],
     "no-unused-vars": ["error", { "varsIgnorePattern": "_" }],
     "quotes": ["error", "single", { "avoidEscape": true }],
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
+    "sort-imports": ["error", { "allowSeparatedGroups": true }],
+    "sort-keys": ["error", "asc", { "caseSensitive": true, "natural": false }],
+    "sort-vars": ["error"]
   },
   "globals": {
     "exports": "readonly",
