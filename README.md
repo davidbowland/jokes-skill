@@ -8,9 +8,6 @@ This skill forces Alexa to tell some of the worst David jokes.
 
 Local debugging is provided by [ask-sdk-local-debug](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs/tree/2.0.x/ask-sdk-local-debug). See the [ask-sdk-local-debug Github page](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs/tree/2.0.x/ask-sdk-local-debug) for more information.
 
-## Deploy skill
-
-This skill is automatically deployed when merged to master.
 
 ### Manual deployments
 

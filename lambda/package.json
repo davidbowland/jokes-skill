@@ -5,9 +5,10 @@
   "description": "Skill for having Alexa tell David jokes",
   "main": "index.js",
   "engines": {
-    "node": "^14.0.0"
+    "node": "^16.0.0"
   },
   "scripts": {
+    "deploy": "$(~/assumeAwsDeveloper.sh) && ask configure && ask deploy --profile default",
     "lint": "prettier --write . && eslint --fix .",
     "prepare": "cd ..; if [ \"$NODE_ENV\" != \"production\" ]; then husky install ; fi",
     "start": "node ./node_modules/ask-sdk-local-debug/dist/LocalDebuggerInvoker.js --accessToken $ACCESS_TOKEN --skillId $SKILL_ID --skillEntryFile index.js --handlerName handler",

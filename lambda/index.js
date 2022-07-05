@@ -23,7 +23,7 @@ const getJokesFromApi = (count) =>
 /* Joke transformations */
 
 const transformJokesToObjects = (jokeData) =>
-  Object.entries(jokeData).map(([id, joke]) => ({ id, text: joke.contents }))
+  Object.entries(jokeData).map(([id, joke]) => ({ id, text: joke.data.contents }))
 
 const extractJokeId = (jokeData) => jokeData.id
 
