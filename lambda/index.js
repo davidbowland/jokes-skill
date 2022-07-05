@@ -1,5 +1,10 @@
 const Alexa = require('ask-sdk-core')
+const AWSXRay = require('aws-xray-sdk-core')
 const axios = require('axios')
+const axiosRetry = require('axios-retry')
+
+AWSXRay.captureHTTPsGlobal(require('https'))
+axiosRetry(axios, { retries: 3 })
 
 // const logIt = (label) => (whatever) =>
 //   Promise.resolve(console.log(label, whatever))

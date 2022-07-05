@@ -24,20 +24,22 @@
     ]
   },
   "dependencies": {
-    "ask-sdk-core": "^2.7.0",
-    "ask-sdk-model": "^1.19.0",
-    "aws-sdk": "^2.326.0",
-    "axios": "^0.22.0"
+    "ask-sdk-core": "^2.12.1",
+    "ask-sdk-model": "^1.38.3",
+    "aws-sdk": "^2.1167.0",
+    "aws-xray-sdk-core": "^3.3.6",
+    "axios": "^0.27.2",
+    "axios-retry": "^3.3.1"
   },
   "devDependencies": {
     "ask-sdk-local-debug": "^1.1.0",
     "ask-sdk-test": "^2.6.0",
-    "chai": "^4.3.4",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "husky": "^7.0.2",
-    "lint-staged": "^11.2.0",
+    "chai": "^4.3.6",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "mocha": "^8.4.0",
-    "prettier": "^2.4.1"
+    "prettier": "^2.7.1"
   }
 }
